@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>CodeBoard</title>
+</head>
+<body>
+    <nav class="bg-green-600">
+        <ul class="px-3 py-3 sm:px-5">
+            <li class="text-2xl text-white font-bold">CodeBoard</li>
+        </ul>
+    </nav>
+    <div class="editor">
+    <div class="">
+        <div class="sm:flex">
+            <label class="sm:w-1/4"><p class="sm:text-2xl px-3 sm:px-5 py-3">HTML Code</p></label>
+            <!-- <label class="sm:w-1/4"><p class="sm:text-2xl px-3 py-3 invisible sm:visible">CSS Code</p></label>
+            <label class="sm:w-1/4"><p class="sm:text-2xl px-3 py-3 invisible sm:visible">JS Code</p></label> -->
+        </div>
+        <div class="textarea">
+            <textarea class="w-screen sm:w-1/4" id="html_code" rows="7"></textarea>
+            <label class="sm:w-1/4"><p class="sm:text-2xl px-3 py-3 sm:hidden">CSS Code</p></label>
+            <textarea class="w-screen sm:w-1/4" id="css_code" rows="7"></textarea>
+            <label class="sm:w-1/4"><p class="sm:text-2xl px-3 py-3 sm:hidden">JS Code</p></label>
+            <textarea class="w-screen sm:w-1/4" id="js_code" rows="7"></textarea>
+        </div>
+    </div>
+    <div class="button">
+        <button onclick="clearHtml()" class="bg-green-600 mx-3 rounded-md w-24 h-10 text-white border-2 active:bg-white active:text-black active:border-black">Clear Html</button>
+        <button onclick="clearcss()" class="bg-green-600 mx-3 rounded-md w-20 h-10 text-white border-2 active:bg-white active:text-black active:border-black">Clear Css</button>
+        <button onclick="clearjs()" class="bg-green-600 mx-3 rounded-md w-20 h-10 text-white border-2 active:bg-white active:text-black active:border-black">Clear Js</button>
+    </div>
+    <div class="">
+        <label ><p class="px-3 py-2">OutPut</p></label>
+        <iframe class="border-2 w-screen" id="output" rows="7"></iframe>
+    </div>
+    <script>
+        function run(){
+            let htmlCode = document.querySelector(".editor #html_code").value;
+            let cssCode = "<style>" + document.querySelector(".editor #css_code").value;
+            let jsCode = document.querySelector(".editor #js_code").value;
+            let output = document.querySelector(".editor #output");
+
+            output.contentDocument.body.innerHTML = htmlCode+cssCode;
+            output.contentWindow.eval(jsCode);
+        }
+        document.querySelector(".editor #html_code").addEventListener("keyup",run);
+        document.querySelector(".editor #css_code").addEventListener("keyup",run);
+        document.querySelector(".editor #js_code").addEventListener("keyup",run);
+
+        function clearHtml(){
+            document.getElementById("html_code").value="";            
+        }
+        function clearcss(){
+            document.getElementById("css_code").value="";            
+        }
+        function clearjs(){
+            document.getElementById("js_code").value="";
+        }
+    </script>
+    </div>
+</body>
+</html>
